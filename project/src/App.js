@@ -1,8 +1,9 @@
 import './App.css';
 import { useState } from 'react';
 import MovieListe from './MovieListe';
-import MovieCarte from './MovieCarte';
+import {Routes,Route} from "react-router-dom"
 import Search from './Search';
+import Detals from './Detals';
 
 function App() {
   const [word,setWord]=useState("")
@@ -15,6 +16,7 @@ function App() {
         main_img:
         "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
       rate: "4",
+      trailer:"https://www.youtube.com/watch?v=mqqft2x_Aa4"
     
     },
     { id: 2,
@@ -49,7 +51,11 @@ setRating(rate)
   return (
     <div className="App">
      <Search getData={getData} getRate={getRate}/>
-      <MovieListe movies={movies.filter((movie)=> movie.rate >= rating && movie.title.toLowerCase().includes(word.trim().toLowerCase()))}  />
+     <Routes>
+      <Route path='/' element={ <MovieListe movies={movies}/>}/>
+      <Route path='/movie/:id' element={ <Detals movies={movies}/>}/>
+     </Routes>
+   
     
     </div>
   );
